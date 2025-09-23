@@ -13,13 +13,13 @@ credits:
     name: annika borrelli
 synopsis: A golfer walks, the cart follows. No distractions, no effort — just seamless support that keeps the game in flow.
 assets:
-  - type: image
+  - type: video
     src: "/assets/projects/golf_cart/1.mp4"
     alt: "video"
-  - type: image
+  - type: video
     src: "/assets/projects/golf_cart/2.mp4"
     alt: "video"
-  - type: image
+  - type: video
     src: "/assets/projects/golf_cart/3.mp4"
     alt: "video"
 
