@@ -15,12 +15,12 @@ synopsis: A golfer walks, the cart follows. No distractions, no effort — just 
 assets:
   - type: image
     src: "/assets/projects/golf_cart/1.mp4"
-    alt: "Cover"
+    alt: "video"
   - type: image
     src: "/assets/projects/golf_cart/2.mp4"
-    alt: "2"
+    alt: "video"
   - type: image
     src: "/assets/projects/golf_cart/3.mp4"
-    alt: "2"
+    alt: "video"
 
 ---

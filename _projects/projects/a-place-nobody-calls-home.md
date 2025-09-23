@@ -11,17 +11,17 @@ synopsis: Sometimes I carry a qipao into places that never asked for it. A churc
 assets:
   - type: image
     src: "/assets/projects/a_place_nobody_calls_home/cover.jpg"
-    alt: "Cover"
+    alt: "image"
   - type: image
     src: "/assets/projects/a_place_nobody_calls_home/1.jpg"
-    alt: "1"
+    alt: "image"
   - type: image
     src: "/assets/projects/a_place_nobody_calls_home/2.jpg"
-    alt: "2"
+    alt: "image"
   - type: image
     src: "/assets/projects/a_place_nobody_calls_home/3.jpg"
-    alt: "3"
+    alt: "image"
   - type: image
     src: "/assets/projects/a_place_nobody_calls_home/4.jpg"
-    alt: "4"
+    alt: "image"
 ---
