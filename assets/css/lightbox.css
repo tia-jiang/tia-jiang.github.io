@@ -1,0 +1,156 @@
+/* === Minimal / Edgy Lightbox with Persistent Controls === */
+:root {
+  --lb-bg: rgb(255, 255, 255);
+  --lb-fg: #0b0b0b;
+  --lb-muted: #6a6a6a;
+  --lb-rule: rgba(0,0,0,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root {
+    --lb-bg: rgba(0, 0, 0);
+    --lb-fg: #eaeaea;
+    --lb-muted: #9a9a9a;
+    --lb-rule: rgba(255,255,255,.22);
+  }
+}
+
+/* Overlay */
+.lb {
+  position: fixed;
+  inset: 0;
+  display: none;
+  background: var(--lb-bg);
+  z-index: 9999;
+  transition: background .2s ease;
+}
+.lb.open { display: grid; place-items: center; }
+
+/* Viewport */
+.lb-viewport {
+  position: relative;
+
+  max-width: 94vw;
+  max-height: 94vh;
+  overflow: auto;
+  border: none;
+  background: transparent;
+
+  /* center content inside the viewport */
+  display: grid;
+  place-items: center;
+}
+
+/* Frame = consistent box, shadow applied here */
+.lb-frame {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  place-items: center;
+  box-shadow: 0 0 24px rgba(0,0,0,0.3);
+  background: transparent; /* stays transparent, no white filler */
+}
+  
+.lb-img {
+  max-width: calc(94vw - 40px) !important;  /* little margin from edges */
+  max-height: calc(94vh - 40px) !important;
+  width: auto;
+  height: auto;
+  object-fit: contain; /* preserves aspect ratio, letterboxes if needed */
+  
+  user-select: none;
+  -webkit-user-drag: none;
+  transform: translate(0,0) scale(1);
+  transition: transform .12s ease;
+  filter: none;
+  cursor: default;
+}
+
+/* Lightbox video */
+.lb-video {
+  display: none;            /* toggled by JS */
+  max-width: calc(94vw - 40px);
+  max-height: calc(94vh - 40px);
+  width: auto;
+  height: auto;
+  background: #000;         /* letterbox */
+}
+
+.lb.show-video .lb-video { display: block; }
+.lb.show-video .lb-img   { display: none; }
+
+/* Hide old text UI */
+.lb-ui { display: none; }
+
+/* Caption (optional, muted text) */
+.lb-cap {
+  position: fixed;
+  bottom: 12px;
+  left: 14px;
+  right: 14px;
+  color: var(--lb-muted);
+  font-size: .82rem;
+  line-height: 1.35;
+}
+
+/* Persistent Button Base */
+.lb-btn {
+  position: fixed;
+  width: 48px;
+  height: 48px;
+  border: none;
+  background: transparent;
+  color: var(--lb-fg);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  user-select: none;
+  pointer-events: auto;
+}
+.lb-btn:hover { background: rgba(0,0,0,.08); }
+@media (prefers-color-scheme: dark) {
+  .lb-btn:hover { background: rgba(255,255,255,.08); }
+}
+
+/* Exit (X) */
+.lb-exit { top: 20px; right: 20px; }
+.lb-exit::before, .lb-exit::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 28px;
+  background: currentColor;
+}
+.lb-exit::before { transform: rotate(45deg); }
+.lb-exit::after  { transform: rotate(-45deg); }
+
+/* Zoom (+/–) */
+.lb-zoom { bottom: 20px; right: 20px; }
+.lb-zoom::before, .lb-zoom::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+.lb-zoom::before { width: 24px; height: 2px; }
+.lb-zoom::after  { width: 2px; height: 24px; transition: opacity .15s ease; }
+/* When zoomed in, hide vertical bar to make minus */
+.lb[data-zoom="in"] .lb-zoom::after { opacity: 0; }
+
+/* Prev / Next arrows */
+.lb-prevbtn, .lb-nextbtn {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.lb-prevbtn { left: 20px; }
+.lb-nextbtn { right: 20px; }
+
+.lb-prevbtn::before, .lb-nextbtn::before {
+  content: "";
+  width: 18px; height: 18px;
+  border: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+.lb-prevbtn::before { border-right: 0; border-top: 0; }
+.lb-nextbtn::before { border-left: 0; border-bottom: 0; }
+
+/* Image cursor when dragging */
+.lb-img:active { cursor: default; }

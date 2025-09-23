@@ -1,0 +1,175 @@
+---
+layout: default
+---
+
+{% capture content_for_head %}
+<link rel="stylesheet" href="{{ '/assets/css/lightbox.css' | relative_url }}">
+{% endcapture %}
+
+<style>
+:root {
+  --bg: #0a0a0a;
+  --fg: #eaeaea;
+  --muted: #9a9a9a;
+  --accent: #00ffe1;
+}
+@media (prefers-color-scheme: light) {
+  :root {--bg:#FEFEFE; --fg:#333333; --muted:#333333; --rule: rgba(0,0,0,.14); --accent:#007bff; }
+}
+
+body { background: var(--bg); color: var(--fg); font-family: ui-monospace, Menlo, Consolas, monospace; }
+
+.project {
+  max-width: 1280px;   /* match masonry’s */
+  margin: 0 auto;      /* same horizontal centering */
+  padding: 0 12px;     /* optional inner breathing room */
+}
+
+.project h1 {
+  margin: 6px 0 4px;
+  font-size: 1.6rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  
+}
+.project p { color: var(--muted); margin: 0 0 12px; }
+
+.meta {
+  font-size: 1.5em;
+  display: flex; gap: 12px; align-items: center; margin: 6px 0 18px;
+  text-transform: uppercase;
+}
+.meta .dot { width: 20px; height: 9px; background: var(--accent); display: inline-block; margin-right: 10px;}
+
+.text-sections {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr; /* Synopsis wider, Credits narrower */
+  gap: 2rem;
+  margin-top: 60px;
+  margin-right: 200px; /* generous space to the right */
+
+  margin-bottom: 48px;   /* generous gap below text */
+}
+
+.synopsis h2,
+.credits h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  font-weight: normal; 
+  border-bottom: 1.5px solid; /* draws an underscore line */
+  display: inline-block;                /* line hugs the text width */
+}
+
+.synopsis p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+
+.credits ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.credits li {
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  display: flex; 
+}
+
+.credit-label {
+  display: inline-block;
+  min-width: 200px; /* keeps labels aligned */
+}
+
+.credit-name {
+  color: var(--muted);
+  text-align: right;
+}
+
+/* collapse to single column on smaller screens */
+@media (max-width: 800px) {
+  .text-sections {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Videos */
+video { background: #000; }
+video[controls]::-webkit-media-controls-panel { filter: invert(0); }
+</style>
+
+<header class="index">
+  <div class="nav-left">
+    <nav><a href="{{ '/' | relative_url }}">Work</a></nav>
+    <nav><a href="/about">About</a></nav>
+    <!-- add as many left items as you want -->
+  </div>
+  <a href="{{ '/' | relative_url }}" class="site-title">
+    <img src="{{ '/assets/favicon-16x16.png' | relative_url }}" alt="logo" class="site-icon">
+    tia</a>
+  
+  <fiv class="nav-right">
+    <nav><a href="https://www.instagram.com/shadyside.productions/">Instagram</a>
+      </nav>
+    </div>
+</header>
+<article class="project">
+  <div class="meta"><span class="dot"></span><span>{{ page.title }}</span></div>
+  <div class="text-sections">
+    {% if page.synopsis %}
+      <section class="synopsis">
+        <h2>Synopsis</h2>
+        <p>{{ page.synopsis }}</p>
+      </section>
+    {% endif %}
+
+    {% if page.credits %}
+      <section class="credits">
+        <h2>Credits</h2>
+        <ul>
+          {% for credit in page.credits %}
+            <li>
+              <span class="credit-label">{{ credit.label }}</span>
+              <span class="credit-name">{{ credit.name }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+  </div>
+  
+
+  <div class="masonry">
+    {% for item in page.assets %}
+      <figure class="card">
+        <div class="media">
+          {% if item.type == "video" %}
+            <video class="card-media"
+                  autoplay
+                  loop
+                  muted
+                  playsinline
+                  preload="metadata"
+                  {% if item.poster %}poster="{{ item.poster | relative_url }}"{% endif %}>
+              <source src="{{ item.src | relative_url }}" type="video/mp4">
+            </video>
+          {% else %}
+            <img class="card-media"
+                src="{{ item.src | relative_url }}"
+                alt="{{ item.alt | default: page.title }}">
+          {% endif %}
+        </div>
+      </figure>
+    {% endfor %}
+  </div>
+</article>
+<footer class="site-footer">
+  <p>© 2025 tia. All rights reserved.</p>
+  <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+</footer>
+{% capture content_for_scripts %}
+<script src="{{ '/assets/js/lightbox.js' | relative_url }}"></script>
+{% endcapture %}

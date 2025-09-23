@@ -1,0 +1,23 @@
+{
+  "name": "tia-jiang.github.io",
+  "version": "1.0.0",
+  "description": "My website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tia-jiang/tia-jiang.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tia-jiang/tia-jiang.github.io/issues"
+  },
+  "homepage": "https://github.com/tia-jiang/tia-jiang.github.io#readme",
+  "scripts": {
+    "gen:projects": "node scripts/generate-projects.js"
+  }
+}

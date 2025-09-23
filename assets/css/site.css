@@ -1,0 +1,156 @@
+:root {
+  --bg:#FEFEFE; --fg:#333333; --muted:#333333; --rule: rgba(0,0,0,.14);
+  --gap:16px;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#0a0a0a; --fg:#eaeaea; --muted:#9a9a9a; --rule: rgba(255,255,255,.18); }
+}
+html, body { background: var(--bg); color: var(--fg); }
+body {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+main { max-width: 1350px; margin: 40px auto; padding: 0 12px; }
+
+header.index {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; /* left | center | right */
+  align-items: center;
+  font-size: .9rem;
+  color: var(--muted);
+  margin-bottom: 60px;
+  padding: 20px;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+header.index a {
+  text-decoration: none;   /* remove the underline */
+  color: inherit;          /* use current text color instead of default link blue */
+}
+
+.site-title {
+  color: #333333;
+  font-size: 2.5rem;            /* overall site title size */
+  letter-spacing: 0.05rem;   /* adds padding between characters */
+
+  display: flex;
+  align-items: center;
+  justify-content: center; /* ensures title is centered */
+
+  gap: 8px; 
+
+  text-decoration: none; /* remove underline */
+}
+
+.site-icon {
+  width: 28px;   /* adjust size */
+  height: 28px;
+}
+
+.nav-left{
+  display: flex;
+  gap: 20px;       /* spacing between nav items */
+  justify-self: start;
+}
+
+.nav-right {
+  display: flex;
+  justify-content: flex-end; /* push children to the right inside this flexbox */
+  gap: 20px;
+  justify-self: end; 
+}
+
+
+/* Card styles (shared by index + project pages) */
+.card {
+  display: block;
+  margin: 0 0 var(--gap);
+  text-decoration: none; color: inherit;
+  break-inside: avoid-column;
+  transition: transform .18s ease, filter .18s ease, border-color .12s ease;
+  overflow: hidden;  
+
+  /* robust "no break in columns" set */
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+  page-break-inside: avoid;
+  contain: paint;                  /* isolate painting inside the card */
+}
+
+/* MEDIA: fixed-height box (JS sets --tileh) */
+.card .media{
+  height: var(--tileh, 300px);  /* only the media is fixed-height */
+  overflow: hidden;
+}
+.card .card-media {
+  width: 100%;
+  height:100%;
+  display:block;
+  object-fit: cover; 
+  filter: none;
+  transition: transform .18s ease, filter .18s ease;
+  transform-origin: center;
+
+  object-position: center;  /* crop from center */
+}
+
+/* Width spans (1 or 2 columns wide) */
+.card.w1{ grid-column: span 1; }
+.card.w2{ grid-column: span 2; }
+
+
+.caption {
+  display:flex; flex-direction:column; gap:6px;
+  padding: 10px 12px;
+}
+.caption .title {
+  margin:0; font-weight:700; text-transform: uppercase; letter-spacing:.04em;
+  font-size:.95rem; line-height:1.15;
+}
+.caption .desc { margin:0; color:var(--muted); font-size:.85rem; line-height:1.35; }
+
+
+/* Ensure video previews don't block card link */
+.card video.card-media {background:#000; min-height:120px; }
+
+
+/* --- Responsive fixed-column grid --- */
+.masonry{
+  --cols: 3;          /* desktop default */
+  --gap: 24px;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: var(--gap);
+  max-width: 1280px;  /* optional, centers the gallery */
+  margin: 0 auto;
+}
+
+/* Tablet: 2 columns */
+@media (max-width: 1024px){
+  .masonry{ --cols: 2; }
+}
+
+/* Phone: 1 column */
+@media (max-width: 680px){
+  .masonry{ --cols: 1; }
+  /* Any wide tiles collapse to 1 col to avoid sideways scroll */
+  .masonry .card.w2{ grid-column: span 1; }
+}
+
+.site-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 60px;
+  padding: 20px 0;
+  border-top: 1px solid var(--rule);
+}
+
+.site-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
