@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <link rel="icon" href="{{ '/assets/favicon.ico' | relative_url }}">
+  <meta name="color-scheme" content="light dark">
+  <!-- project-only head assets -->
+  {% if page.layout == 'project' %}
+  <link rel="stylesheet" href="{{ '/assets/css/lightbox.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+  {% endif %}
+  <script>window.ASSET_VER = "{{ site.time | date: '%s' }}";</script>
+  {% if content_for_head %}{{ content_for_head }}{% endif %}
+</head>
+<body>
+  <main>
+    {{ content }}
+  </main>
+
+   <script src="{{ '/assets/js/site.js' | relative_url }}"></script>
+  {% if page.layout == 'project' %}
+  <script src="{{ '/assets/js/lightbox.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+  {% endif %}
+  {% if content_for_scripts %}{{ content_for_scripts }}{% endif %}
+</body>
+</html>
+

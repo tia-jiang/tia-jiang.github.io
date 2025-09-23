@@ -1,0 +1,94 @@
+---
+layout: default
+title: Work
+---
+
+<header class="index">
+  <div class="nav-left">
+    <nav><a href="{{ '/' | relative_url }}">Work</a></nav>
+    <nav><a href="/about">About</a></nav>
+    <!-- add more items  -->
+  </div>
+  <a href="{{ '/' | relative_url }}" class="site-title">
+    <img src="{{ '/assets/favicon-16x16.png' | relative_url }}" alt="logo" class="site-icon">
+    tia</a>
+  
+  <fiv class="nav-right">
+    <nav><a href="https://www.instagram.com/shadyside.productions/">Instagram</a></nav>
+    <!-- add more items  -->
+    </div>
+</header>
+
+<div class="masonry">
+  {% assign projects = site.projects | sort: "date" | reverse %}
+  {% for p in projects %}
+    {% assign cover_lc = p.cover | downcase %}
+    <a class="card w1" href="{{ p.url | relative_url }}">
+      <div class="media">
+        {% if cover_lc contains '.mp4' or cover_lc contains '.webm' %}
+          <video
+            class="card-media"
+            src="{{ p.cover | relative_url }}"
+            muted
+            playsinline
+            webkit-playsinline
+            autoplay
+            loop
+            preload="auto">
+          </video>
+        {% else %}
+          <img class="card-media" src="{{ p.cover | relative_url }}" alt="{{ p.title }}">
+        {% endif %}
+      </div>
+      <div class="caption">
+        <h3 class="title">{{ p.title }}</h3>
+        {% if p.description %}<p class="desc">{{ p.description }}</p>{% endif %}
+      </div>
+    </a>
+  {% endfor %}
+</div>
+<footer class="site-footer">
+  <p>© 2025 tia. All rights reserved.</p>
+  <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+</footer>
+
+{% capture content_for_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const vids = document.querySelectorAll('.card video.card-media');
+  if (!vids.length) return;
+
+  vids.forEach(v => {
+    // attributes + properties (Safari can require both)
+    v.setAttribute('muted','');
+    v.setAttribute('playsinline','');
+    v.setAttribute('webkit-playsinline','');
+    v.setAttribute('autoplay','');
+    v.setAttribute('loop','');
+    v.preload = 'auto';
+
+    v.muted = true;
+    v.playsInline = true;
+    v.webkitPlaysInline = true;
+    v.autoplay = true;
+    v.loop = true;
+
+    const tryPlay = () => v.play().catch(()=>{});
+    if (v.readyState >= 1) tryPlay();
+    else v.addEventListener('loadedmetadata', tryPlay, { once:true });
+  });
+
+  // Play/pause based on visibility (smoother + more reliable)
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        const v = e.target;
+        if (e.isIntersecting) v.play().catch(()=>{});
+        else v.pause();
+      });
+    }, { threshold: 0.2 });
+    vids.forEach(v => io.observe(v));
+  }
+});
+</script>
+{% endcapture %}
