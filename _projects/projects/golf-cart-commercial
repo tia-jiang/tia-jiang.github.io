@@ -1,0 +1,26 @@
+---
+layout: project
+title: "Golf cart commercial"
+date: 2022-08-08
+assets_dir: /assets/projects/golf_cart
+cover: "/assets/projects/golf_cart/cover.gif"
+credits: 
+  - label: Producer
+    name: Tia Jiang
+  - label: DP/Camera
+    name: Jesse Gonzalez 
+  - label: Talent
+    name: annika borrelli
+synopsis: A golfer walks, the cart follows. No distractions, no effort — just seamless support that keeps the game in flow.
+assets:
+  - type: image
+    src: "/assets/projects/golf_cart/1.mp4"
+    alt: "Cover"
+  - type: image
+    src: "/assets/projects/golf_cart/2.mp4"
+    alt: "2"
+  - type: image
+    src: "/assets/projects/golf_cart/3.mp4"
+    alt: "2"
+
+---

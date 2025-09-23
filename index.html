@@ -3,6 +3,84 @@ layout: default
 title: Work
 ---
 
+<style>
+
+.card {
+  display: block;
+  margin: 0 0 var(--gap);
+  text-decoration: none; color: inherit;
+  break-inside: avoid-column;
+  transition: transform .18s ease, filter .18s ease, border-color .12s ease;
+  overflow: hidden;  
+
+  /* robust "no break in columns" set */
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+  page-break-inside: avoid;
+  contain: paint;                  /* isolate painting inside the card */
+}
+
+.card .media{
+  height: var(--tileh, 300px);
+  overflow: hidden;
+  place-items: center;                 /* center the child */
+}
+
+.card .card-media{
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);   /* true centering */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;                   /* crop */
+  object-position: center;
+  display: block;
+}
+
+/* Width spans (1 or 2 columns wide) */
+.card.w1{ grid-column: span 1; }
+.card.w2{ grid-column: span 2; }
+
+
+.caption {
+  display:flex; flex-direction:column; gap:6px;
+  padding: 10px 12px;
+}
+.caption .title {
+  margin:0; font-weight:700; text-transform: uppercase; letter-spacing:.04em;
+  font-size:.95rem; line-height:1.15;
+}
+.caption .desc { margin:0; color:var(--muted); font-size:.85rem; line-height:1.35; }
+
+
+/* Ensure video previews don't block card link */
+.card video.card-media {background:#000; min-height:120px; }
+
+
+/* --- Responsive fixed-column grid --- */
+.masonry{
+  --cols: 3;          /* desktop default */
+  --gap: 100px;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: var(--gap);
+  max-width: 1600px;  /* optional, centers the gallery */
+  margin: 0 auto;
+}
+
+/* Tablet: 2 columns */
+@media (max-width: 1024px){
+  .masonry{ --cols: 2; }
+}
+
+/* Phone: 1 column */
+@media (max-width: 680px){
+  .masonry{ --cols: 1; }
+  /* Any wide tiles collapse to 1 col to avoid sideways scroll */
+  .masonry .card.w2{ grid-column: span 1; }
+}
+</style>
+
 <header class="index">
   <div class="nav-left">
     <nav><a href="{{ '/' | relative_url }}">Work</a></nav>
@@ -13,7 +91,7 @@ title: Work
     <img src="{{ '/assets/favicon-16x16.png' | relative_url }}" alt="logo" class="site-icon">
     tia</a>
   
-  <fiv class="nav-right">
+  <div class="nav-right">
     <nav><a href="https://www.instagram.com/shadyside.productions/">Instagram</a></nav>
     <!-- add more items  -->
     </div>
