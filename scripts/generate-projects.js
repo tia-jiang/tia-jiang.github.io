@@ -14,7 +14,6 @@ const OUT_DIR      = path.join(ROOT, '_projects/projects');
 const DRY_RUN      = process.argv.includes('--dry-run');
 const OVERWRITE    = process.argv.includes('--overwrite'); // overwrite existing .md
 
-// Add/adjust as you like
 const ALLOWED = {
   image: ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.avif'],
   video: ['.mp4', '.webm', '.mov', '.m4v']
