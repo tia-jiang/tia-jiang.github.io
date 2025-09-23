@@ -111,7 +111,6 @@ title: Work
             playsinline
             webkit-playsinline
             autoplay
-            loop
             preload="auto">
           </video>
         {% else %}
@@ -142,14 +141,13 @@ document.addEventListener('DOMContentLoaded', () => {
     v.setAttribute('playsinline','');
     v.setAttribute('webkit-playsinline','');
     v.setAttribute('autoplay','');
-    v.setAttribute('loop','');
     v.preload = 'auto';
 
     v.muted = true;
     v.playsInline = true;
     v.webkitPlaysInline = true;
     v.autoplay = true;
-    v.loop = true;
+    v.loop = false;
 
     const tryPlay = () => v.play().catch(()=>{});
     if (v.readyState >= 1) tryPlay();
@@ -167,6 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.2 });
     vids.forEach(v => io.observe(v));
   }
+});
+
+v.addEventListener('ended', () => {
+  v.pause();
+  v.currentTime = v.duration; // hold on the last frame
 });
 </script>
 {% endcapture %}
