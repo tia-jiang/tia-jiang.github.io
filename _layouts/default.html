@@ -14,17 +14,29 @@
   {% endif %}
   <script>window.ASSET_VER = "{{ site.time | date: '%s' }}";</script>
   {% if content_for_head %}{{ content_for_head }}{% endif %}
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-465VGY8MXD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-465VGY8MXD');
+  </script>
 </head>
 <body>
   <main>
     {{ content }}
   </main>
-
    <script src="{{ '/assets/js/site.js' | relative_url }}"></script>
   {% if page.layout == 'project' %}
   <script src="{{ '/assets/js/lightbox.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
   {% endif %}
   {% if content_for_scripts %}{{ content_for_scripts }}{% endif %}
 </body>
+<footer class="site-footer">
+  <p>© 2025 tia. All rights reserved.</p>
+  <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+</footer>
 </html>
 
