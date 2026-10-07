@@ -1,4 +1,4 @@
 layout: page
 title: "contact"
 permalink: /contact/
-email: tiajiang2014@gmail.com
+email: reach.tiaj@gmail.com
